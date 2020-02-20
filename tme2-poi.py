@@ -2,8 +2,8 @@ import pickle
 
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-import numpy as np
-from Histogramme import *
+
+from Parzen import *
 
 plt.ion()
 parismap = mpimg.imread('data/paris-48.806-2.23--48.916-2.48.jpg')
@@ -43,8 +43,12 @@ xx, yy = np.meshgrid(np.linspace(xmin, xmax, steps), np.linspace(ymin, ymax, ste
 grid = np.c_[xx.ravel(), yy.ravel()]
 
 # A remplacer par res = monModele.predict(grid).reshape(steps,steps)
-h = Histogramme()
-res = h.learn(geo_mat, ymin, ymax, xmin, xmax, steps)
+# h = Histogramme()
+# res = h.learn(geo_mat, ymin, ymax, xmin, xmax, steps)
+
+p = Parzen(geo_mat, np.array([0.010999999999999944, 0.025])*1)
+
+res = p.predict(grid).reshape(steps, steps)
 plt.figure()
 show_map()
 plt.imshow(res, extent=[xmin, xmax, ymin, ymax], interpolation='none', \
