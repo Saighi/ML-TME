@@ -1,0 +1,37 @@
+Rapport Machine learning
+
+//TME2
+
+Que se passe-t-il pour une faible/forte discrétisation pour la méthode des histogrammes ?
+
+Une forte discrétisation de l'histogramme a tendance à surajuster le modèle ce qui
+nuità sa capacité de généralisation. Un cas extreme pourrait par exemple être celui
+où toute donnée nouvelle se retrouverait dans un espace à faible densité
+et serait considérée comme improbable.
+
+Une faible discrétisation a tendance à "étaler" la mesure de densité de manière à
+générer un modèle incapable de rendre compte des variations locales de densité.
+
+Quel est le rôle des paramètres des méthodes à noyaux ?
+
+Les paramètres des méthodes à noyaux ne déterminent pas (explicitement) un modèle
+comme pourraient le faire les paramètres de régression logistique par exemple.
+Ils décrivent plutôt des modalités d'inférence fixes liées à l'apparition d'une
+nouvelle observation. Chaque nouvelle observation sera accompagné des mêmes modalités
+d'inférences, Pour une fenêtre de Parzen les modalités d'inférences pour chaque
+observation sont donc identiques, "regarde dans l'hypercube de côté N qui entoure
+la nouvelle observation comment sont agencées les anciennent observations et
+conclus". Dans une méthode type régression il est nécessaire de croiser les
+paramètres à l'emplacement de la nouvelle observation pour conclure.
+
+Comment choisir de manière automatique les meilleurs paramètres ?
+La question reliée : comment estimer la qualité de votre modèle ?
+
+Pour choisir les meilleurs paramètres il y a plusieurs solutions.
+Soit on teste toutes les valeurs de paramètres (souvent impossible)
+soit on quadrille de manière plus intelligente l'espace des paramètres.
+Dans les deux cas on sélectionne ceux qui donnent une meilleure
+vraisemblance/réduisent une fonction de coût (introduire un facteur
+empêchant le sur ajustement).
+
+Une coube Roc peut être utilisée pour déterminer la qualité du modèle.

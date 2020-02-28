@@ -39,7 +39,7 @@ plt.scatter(geo_mat[:, 1], geo_mat[:, 0], alpha=0.8, s=3)
 ###################################################
 
 # discretisation pour l'affichage des modeles d'estimation de densite
-steps = 10
+steps = 100
 xx, yy = np.meshgrid(np.linspace(xmin, xmax, steps), np.linspace(ymin, ymax, steps))
 grid = np.c_[xx.ravel(), yy.ravel()]
 
@@ -48,15 +48,15 @@ grid = np.c_[xx.ravel(), yy.ravel()]
 # res = h.learn(geo_mat, ymin, ymax, xmin, xmax, steps)
 
 #p = Parzen(geo_mat, np.array([0.010999999999999944, 0.025])*1)
-p = Gaussian(geo_mat, 0.025)
-
+p = TwoDGaussian(geo_mat, [0.010999999999999944, 0.025])
 
 res = p.predict(grid).reshape(steps, steps)
 plt.figure()
+
 show_map()
+
 plt.imshow(res, extent=[xmin, xmax, ymin, ymax], interpolation='none', \
            alpha=0.3, origin="lower")
 plt.colorbar()
 plt.scatter(geo_mat[:, 1], geo_mat[:, 0], alpha=0.3)
 
-plt.draw()
