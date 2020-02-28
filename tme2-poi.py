@@ -2,8 +2,9 @@ import pickle
 
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
+import numpy as np
 
-from Parzen import *
+from Kernels import *
 
 plt.ion()
 parismap = mpimg.imread('data/paris-48.806-2.23--48.916-2.48.jpg')
@@ -46,7 +47,7 @@ grid = np.c_[xx.ravel(), yy.ravel()]
 # h = Histogramme()
 # res = h.learn(geo_mat, ymin, ymax, xmin, xmax, steps)
 
-p = Parzen(geo_mat, np.array([0.010999999999999944, 0.025])*1)
+p = Gaussian(geo_mat, np.array([0.010999999999999944, 0.025])*1)
 
 res = p.predict(grid).reshape(steps, steps)
 plt.figure()
@@ -55,3 +56,5 @@ plt.imshow(res, extent=[xmin, xmax, ymin, ymax], interpolation='none', \
            alpha=0.3, origin="lower")
 plt.colorbar()
 plt.scatter(geo_mat[:, 1], geo_mat[:, 0], alpha=0.3)
+
+plt.draw()
