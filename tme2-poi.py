@@ -47,7 +47,9 @@ grid = np.c_[xx.ravel(), yy.ravel()]
 # h = Histogramme()
 # res = h.learn(geo_mat, ymin, ymax, xmin, xmax, steps)
 
-p = Gaussian(geo_mat, np.array([0.010999999999999944, 0.025])*1)
+#p = Parzen(geo_mat, np.array([0.010999999999999944, 0.025])*1)
+p = Gaussian(geo_mat, 0.025)
+
 
 res = p.predict(grid).reshape(steps, steps)
 plt.figure()
