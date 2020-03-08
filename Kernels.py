@@ -37,35 +37,35 @@ class Gaussian:
         probas = np.zeros(len(grid))
         for i in range(len(grid)):
             probas[i] = self.density_at_point(grid[i], self.sigma)
-
+        print(probas/self.sum)
         return probas/self.sum
 
     def density_at_point(self, point,sigma):
         k = 0
         for y,x in self.geo_mat:
             vec = np.array([x,y])
-            k += np.exp(-(LA.norm(point-vec)**2)/ (2 * (sigma ** 2)))
+            k += np.exp(-(LA.norm(point-vec)**2)/ (2 * (sigma ** 2))) 
         self.sum += k
         return k
 
 
 class TwoDGaussian:
 
-    def __init__(self, geo_mat, sigma):
-        self.sigma = sigma
+    def __init__(self, geo_mat, window):
+        self.window = window
         self.geo_mat = geo_mat
         self.n = len(geo_mat)
 
     def predict(self, grid):
         probas = np.zeros(len(grid))
         for i in range(len(grid)):
-            probas[i] = self.density_at_point(grid[i],self.sigma)
+            probas[i] = self.density_at_point(grid[i],0.025)
         return probas
 
     def density_at_point(self, point,sigma):
         k = 0
         for y,x in self.geo_mat:
             vec = np.array([x,y])
-            k += np.exp(-((point[0]-vec[0])**2)/(2 * sigma[0] ** 2)-((point[1]-vec[1])**2)/(2 * sigma[1] ** 2))
+            k += (np.exp(-((point[0]-vec[0])**2))/(2 * sigma ** 2)) * (np.exp(-((point[1] - vec[1]) ** 2)) / (2*sigma **2))
 
         return k/self.n
